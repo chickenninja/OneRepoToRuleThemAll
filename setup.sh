@@ -14,15 +14,23 @@ apt-get update
 apt-get install -y neovim tmux nethack-console git nodejs sudo
 
 # clone frequently used repos
-su sean -c 'git clone https://github.com/chickenninja/OneRepoToRuleThemAll.git /home/sean'
-su sean -c 'git clone https://github.com/chickenninja/dotfileis.git /home/sean'
+if [ ! -d /home/sean/OneRepoToRuleThemAll ] 
+then
+    su sean -c 'git clone https://github.com/chickenninja/OneRepoToRuleThemAll.git /home/sean/OneRepoToRuleThemAll'
+fi
+if [ ! -d /home/sean/dotfiles ] 
+then
+    su sean -c 'git clone https://github.com/chickenninja/dotfiles.git /home/sean/dotfiles'
+fi
 
 # config stuff
 su sean -c 'git config --global user.email "sean@example.com"'
 su sean -c 'git config --global user.name "Sean Davis"'
 
-su sean -c 'mkdir -p ~/.local/share/nvim/site/pack/git-plugins/start
-&& git clone https://github.com/w0rp/ale.git ~/.local/share/nvim/site/pack/git-plugins/start/ale git clone https://github.com/sbdchd/neoformat.git ~/.local/share/nvim/site/pack/git-plugins/start/neoformat'
+if [ ! -d /home/sean/.local/share/nvim/site/pack/git-plugins/start ] 
+then
+    su sean -c 'mkdir -p ~/.local/share/nvim/site/pack/git-plugins/start && git clone https://github.com/w0rp/ale.git ~/.local/share/nvim/site/pack/git-plugins/start/ale && git clone https://github.com/sbdchd/neoformat.git ~/.local/share/nvim/site/pack/git-plugins/start/neoformat'
+fi
 
 # setup dotfiles
 su sean -c '/home/sean/dotfiles/link.sh'
@@ -36,6 +44,7 @@ then
     exit 1
 fi
 
+chown sean /home/sean/.ssh/authorized_keys
 su sean -c "chmod 700 /home/sean/.ssh"
 su sean -c "chmod 600 /home/sean/.ssh/authorized_keys"
 su sean -c "chown -R sean /home/sean/.ssh"
