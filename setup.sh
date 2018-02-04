@@ -1,8 +1,6 @@
-
 set -o errexit
 set -o pipefail
 set -o nounset
-
 
 # create user
 if [ ! $(id -u sean) ]
@@ -17,12 +15,17 @@ apt-get install -y neovim tmux nethack-console git nodejs sudo
 
 # clone frequently used repos
 su sean -c 'git clone https://github.com/chickenninja/OneRepoToRuleThemAll.git /home/sean'
+su sean -c 'git clone https://github.com/chickenninja/dotfileis.git /home/sean'
 
 # config stuff
 su sean -c 'git config --global user.email "sean@example.com"'
 su sean -c 'git config --global user.name "Sean Davis"'
 
+su sean -c 'mkdir -p ~/.local/share/nvim/site/pack/git-plugins/start
+&& git clone https://github.com/w0rp/ale.git ~/.local/share/nvim/site/pack/git-plugins/start/ale git clone https://github.com/sbdchd/neoformat.git ~/.local/share/nvim/site/pack/git-plugins/start/neoformat'
+
 # setup dotfiles
+su sean -c '/home/sean/dotfiles/link.sh'
 
 # fix ssh
 if [ ! -f /home/sean/.ssh/authorized_keys ]
