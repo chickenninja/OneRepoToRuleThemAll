@@ -1,0 +1,1 @@
+htpasswd -c htpasswd myuser

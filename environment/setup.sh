@@ -6,12 +6,27 @@ set -o nounset
 if [ ! $(id -u sean) ]
 then
     adduser sean
-    usermod -aG sudo sean
+    usermod -aG sudo,docker sean
 fi
 
 # install tools
 apt-get update
-apt-get install -y neovim tmux nethack-console git nodejs sudo
+apt-get install -y neovim tmux nethack-console git sudo curl astyle ruby-beautify apache2-utils htop
+
+curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+curl -sL https://get.docker.com | bash
+
+npm install -g js-beautify prettier prettydiff nodemon
+
+# symlink tools
+
+if [ -f /usr/bin/nvim ]
+then
+    rm /usr/bin/vim
+    ln -s /usr/bin/nvim /usr/bin/vim
+fi
 
 # clone frequently used repos
 if [ ! -d /home/sean/OneRepoToRuleThemAll ] 
@@ -31,6 +46,8 @@ if [ ! -d /home/sean/.local/share/nvim/site/pack/git-plugins/start ]
 then
     su sean -c 'mkdir -p ~/.local/share/nvim/site/pack/git-plugins/start && git clone https://github.com/w0rp/ale.git ~/.local/share/nvim/site/pack/git-plugins/start/ale && git clone https://github.com/sbdchd/neoformat.git ~/.local/share/nvim/site/pack/git-plugins/start/neoformat'
 fi
+
+echo 'export EDITOR="/usr/bin/nvim"' >> /home/sean/.bashrc
 
 # setup dotfiles
 su sean -c '/home/sean/dotfiles/link.sh'
