@@ -1,4 +1,4 @@
-Mainframe in a Docker Image :)
+Mainframe in a single Docker command :)
 ---
 
 Automated the steps provided in Ryan's article: https://modernmainframer.com/2017/01/30/so-you-want-your-own-mainframe-hercules-zarchitecture-emulator-tutorial/
