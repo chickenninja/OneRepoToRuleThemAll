@@ -1,1 +1,3 @@
 # OneRepoToRuleThemAll
+
+Slowly moving my reference stuff into one useful repo...

@@ -12,7 +12,7 @@ fi
 
 # install tools
 apt-get update
-apt-get install -y neovim tmux nethack-console git sudo curl astyle ruby-beautify apache2-utils htop
+apt-get install -y neovim tmux nethack-console git sudo curl astyle ruby-beautify apache2-utils htop ranger
 
 curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 sudo apt-get install -y nodejs
@@ -77,3 +77,4 @@ sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 systemctl restart sshd
 
 hostnamectl set-hostname HAL9000
+echo "127.0.0.1    HAL9000" >> /etc/hosts
