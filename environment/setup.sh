@@ -1,12 +1,13 @@
 set -o errexit
 set -o pipefail
 set -o nounset
+set -x
 
 # create user
 if [ ! $(id -u sean) ]
 then
     adduser sean
-    usermod -aG sudo,docker sean
+    usermod -aG sudo sean
 fi
 
 # install tools
@@ -17,6 +18,7 @@ curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 curl -sL https://get.docker.com | bash
+usermod -aG docker sean
 
 npm install -g js-beautify prettier prettydiff nodemon
 
@@ -31,20 +33,20 @@ fi
 # clone frequently used repos
 if [ ! -d /home/sean/OneRepoToRuleThemAll ] 
 then
-    su sean -c 'git clone https://github.com/chickenninja/OneRepoToRuleThemAll.git /home/sean/OneRepoToRuleThemAll'
+    su sean -c 'cd ~ && git clone https://github.com/chickenninja/OneRepoToRuleThemAll.git'
 fi
 if [ ! -d /home/sean/dotfiles ] 
 then
-    su sean -c 'git clone https://github.com/chickenninja/dotfiles.git /home/sean/dotfiles'
+    su sean -c 'cd ~ && git clone https://github.com/chickenninja/dotfiles.git'
 fi
 
 # config stuff
-su sean -c 'git config --global user.email "sean@example.com"'
-su sean -c 'git config --global user.name "Sean Davis"'
+su sean -c 'cd ~ && git config --global user.email "sean@example.com"'
+su sean -c 'cd ~ && git config --global user.name "Sean Davis"'
 
 if [ ! -d /home/sean/.local/share/nvim/site/pack/git-plugins/start ] 
 then
-    su sean -c 'mkdir -p ~/.local/share/nvim/site/pack/git-plugins/start && git clone https://github.com/w0rp/ale.git ~/.local/share/nvim/site/pack/git-plugins/start/ale && git clone https://github.com/sbdchd/neoformat.git ~/.local/share/nvim/site/pack/git-plugins/start/neoformat'
+    su sean -c 'cd ~ && mkdir -p ~/.local/share/nvim/site/pack/git-plugins/start && git clone https://github.com/w0rp/ale.git ~/.local/share/nvim/site/pack/git-plugins/start/ale && git clone https://github.com/sbdchd/neoformat.git ~/.local/share/nvim/site/pack/git-plugins/start/neoformat'
 fi
 
 echo 'export EDITOR="/usr/bin/nvim"' >> /home/sean/.bashrc
@@ -73,3 +75,5 @@ sed -i 's/#PubkeyAuthentication/PubkeyAuthentication/g' /etc/ssh/sshd_config
 sed -i 's/PermitRootLogin yes/PermitRootLogin no/g' /etc/ssh/sshd_config
 
 systemctl restart sshd
+
+hostnamectl set-hostname HAL9000
