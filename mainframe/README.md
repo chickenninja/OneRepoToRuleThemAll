@@ -5,6 +5,8 @@ Automated the steps provided in Ryan's article: https://modernmainframer.com/201
 
 I've used tmux to allow you to watch the setup as it happens.
 
+[![asciicast](https://asciinema.org/a/161980.png)](https://asciinema.org/a/161980)
+
 Try it yourself!
 
 1) Install Docker
