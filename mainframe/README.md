@@ -11,7 +11,7 @@ Try it yourself!
 
 1) Install Docker
 
-2) Run the image
+2) Run the container
 
 ```
 docker run -it seanchickenninja/mainframe
