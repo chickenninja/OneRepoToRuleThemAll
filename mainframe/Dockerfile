@@ -3,9 +3,11 @@ FROM debian
 MAINTAINER Sean Davis
 
 WORKDIR /tmp
+EXPOSE 8038
+
 
 RUN apt-get update
-RUN apt-get install -y unzip hercules curl
+RUN apt-get install -y unzip hercules curl ranger vim links
 
 RUN curl -o 3270.tgz https://netcologne.dl.sourceforge.net/project/x3270/x3270/3.6ga4/suite3270-3.6ga4-src.tgz
 RUN curl -o turnkey.zip http://wotho.ethz.ch/tk4-/tk4-_v1.00_current.zip

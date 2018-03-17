@@ -12,7 +12,12 @@ fi
 
 # install tools
 apt-get update
-apt-get install -y neovim tmux nethack-console git sudo curl astyle ruby-beautify apache2-utils htop ranger
+apt-get install -y neovim tmux nethack-console git sudo curl astyle ruby-beautify apache2-utils htop ranger pulseaudio fbset 
+
+# install X 
+sed -i -e 's/stretch/buster/g' /etc/apt/sources.list
+apt-get update
+apt-get install -y xinit i3 dmenu qutebrowser
 
 curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash -
 sudo apt-get install -y nodejs
