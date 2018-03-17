@@ -1,5 +1,12 @@
-FROM debian:stretch 
+FROM debian:jessie
 
+RUN apt-get update && \
+    apt-get install -y locales && \
+    locale-gen C.UTF-8 && \
+    /usr/sbin/update-locale LANG=C.UTF-8 && \
+    apt-get remove -y locales
+
+ENV LANG C.UTF-8
 WORKDIR /root
 
 RUN apt-get update && apt-get install -y curl bzip2 libsdl1.2-dev libgtk2.0-0 libsdl-image1.2 libsdl-ttf2.0-0 vim links nethack-console
